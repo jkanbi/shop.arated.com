@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Shop Admin - Product Management</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="admin-styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="index.html" class="back-link">
+          <i class="fas fa-arrow-left"></i> Back to Shop
+        </a>
+        <h1>Product Management</h1>
+      </div>
+      <div class="header-right">
+        <button id="saveBtn" class="save-btn">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <div class="sidebar-section">
+          <h3>Quick Actions</h3>
+          <button id="addProductBtn" class="sidebar-btn primary">
+            <i class="fas fa-plus"></i> Add New Product
+          </button>
+          <button id="importBtn" class="sidebar-btn">
+            <i class="fas fa-upload"></i> Import Products
+          </button>
+          <button id="exportBtn" class="sidebar-btn">
+            <i class="fas fa-download"></i> Export Products
+          </button>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Statistics</h3>
+          <div class="stat-item">
+            <span class="stat-label">Total Products</span>
+            <span id="totalProducts" class="stat-value">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Categories</span>
+            <span id="totalCategories" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>File Input</h3>
+          <div class="file-input-group">
+            <label for="jsonImport" class="file-label">
+              <i class="fas fa-file-code"></i> JSON Import
+            </label>
+            <input type="file" id="jsonImport" accept=".json" class="file-input">
+          </div>
+          <div class="file-input-group">
+            <label for="csvImport" class="file-label">
+              <i class="fas fa-file-csv"></i> CSV Import
+            </label>
+            <input type="file" id="csvImport" accept=".csv" class="file-input">
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <div class="admin-content">
+        <!-- Add/Edit Product Form -->
+        <div id="productForm" class="product-form-section">
+          <div class="form-header">
+            <h2 id="formTitle">Add New Product</h2>
+            <button id="cancelEdit" class="cancel-btn" style="display: none;">
+              <i class="fas fa-times"></i> Cancel Edit
+            </button>
+          </div>
+          
+          <form id="productFormElement" class="product-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name">Product Name *</label>
+                <input type="text" id="name" required placeholder="Enter product name">
+              </div>
+              
+              <div class="form-group">
+                <label for="price">Price *</label>
+                <div class="price-input">
+                  <span class="currency">$</span>
+                  <input type="number" id="price" step="0.01" required placeholder="0.00">
+                </div>
+              </div>
+              
+              <div class="form-group full-width">
+                <label for="description">Description *</label>
+                <textarea id="description" required placeholder="Enter product description" rows="3"></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="image">Image URL</label>
+                <input type="url" id="image" placeholder="https://example.com/image.jpg">
+                <div class="image-preview" id="imagePreview">
+                  <i class="fas fa-image"></i>
+                  <span>No image</span>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="link">Primary Product Link *</label>
+                <input type="url" id="link" required placeholder="https://supplier.com/product">
+              </div>
+
+              <div class="form-group">
+                <label for="link2">Affiliate Link 2</label>
+                <input type="url" id="link2" placeholder="https://supplier.com/alt2">
+              </div>
+
+              <div class="form-group">
+                <label for="link3">Affiliate Link 3</label>
+                <input type="url" id="link3" placeholder="https://supplier.com/alt3">
+              </div>
+
+              <div class="form-group">
+                <label for="link4">Affiliate Link 4</label>
+                <input type="url" id="link4" placeholder="https://supplier.com/alt4">
+              </div>
+              
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category">
+                  <option value="">Select category</option>
+                  <option value="tech">Tech</option>
+                  <option value="home">Home</option>
+                  <option value="lifestyle">Lifestyle</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="submit-btn">
+                <i class="fas fa-save"></i> Save Product
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Products List -->
+        <div class="products-list-section">
+          <div class="section-header">
+            <h2>Current Products</h2>
+            <div class="list-controls">
+              <input type="text" id="searchProducts" placeholder="Search products..." class="search-input">
+              <select id="categoryFilter" class="category-filter">
+                <option value="">All Categories</option>
+                <option value="tech">Tech</option>
+                <option value="home">Home</option>
+                <option value="lifestyle">Lifestyle</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="products-table-container">
+            <table class="products-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Links</th>
+                  <th>Category</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody">
+                <!-- Products will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- JSON Output -->
+        <div class="json-output-section">
+          <div class="section-header">
+            <h2>Products JSON</h2>
+            <button id="copyJsonBtn" class="copy-btn">
+              <i class="fas fa-copy"></i> Copy JSON
+            </button>
+          </div>
+          <textarea id="output" readonly placeholder="Products JSON will appear here..."></textarea>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Import Modal -->
+  <div id="importModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Import Products</h3>
+        <span class="close" id="closeImportModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Choose a file to import products. This will replace all existing products.</p>
+        <div class="import-options">
+          <div class="import-option">
+            <label for="modalJsonImport" class="file-label">
+              <i class="fas fa-file-code"></i> JSON File
+            </label>
+            <input type="file" id="modalJsonImport" accept=".json">
+          </div>
+          <div class="import-option">
+            <label for="modalCsvImport" class="file-label">
+              <i class="fas fa-file-csv"></i> CSV File
+            </label>
+            <input type="file" id="modalCsvImport" accept=".csv">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="confirmImport" class="btn primary">Import Products</button>
+        <button id="cancelImport" class="btn secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Error Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="admin-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Product One",
+    "description": "Description for product one.",
+    "price": 19.99,
+    "image": "https://via.placeholder.com/600x400?text=Product+One",
+    "link": "https://supplier1.com/product1",
+    "links": [
+      "https://supplier1.com/product1",
+      "https://supplier1.com/product1-alt",
+      "https://example.com/merchant-a/product1",
+      "https://example.com/merchant-b/product1"
+    ],
+    "category": "home"
+  },
+  {
+    "id": 2,
+    "name": "Product Two",
+    "description": "Description for product two.",
+    "price": 29.99,
+    "image": "https://via.placeholder.com/600x400?text=Product+Two",
+    "link": "https://supplier2.com/product2",
+    "links": [
+      "https://supplier2.com/product2",
+      "https://supplier2.com/product2-alt",
+      "https://example.com/merchant-a/product2"
+    ],
+    "category": "tech"
+  },
+  {
+    "id": 3,
+    "name": "Nest Thermostat",
+    "description": "Nest Thermostat",
+    "price": 21.58,
+    "image": "https://hub.arated.com/wp-content/uploads/2019/03/nest-thermostat-3rd-gen-300x300.jpg",
+    "link": "http://arated.com",
+    "links": [
+      "http://arated.com",
+      "https://example.com/merchant-c/nest-thermostat"
+    ],
+    "category": "home"
+  }
+]
