@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProducts();
     setupEventListeners();
     setupMobileNavigation();
+    initTheme();
 });
 
 // Setup event listeners
@@ -44,10 +45,6 @@ function setupEventListeners() {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
             filterProducts(category);
-            
-            // Update active state
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
         });
     });
 
@@ -70,6 +67,43 @@ function setupEventListeners() {
             }
         });
     });
+}
+
+// Theme handling
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    applyTheme(theme);
+
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('theme-dark');
+            const newTheme = isDark ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            updateThemeToggle(toggle, newTheme);
+        });
+        updateThemeToggle(toggle, theme);
+    }
+}
+
+function applyTheme(theme) {
+    const isDark = theme === 'dark';
+    document.documentElement.classList.toggle('theme-dark', isDark);
+}
+
+function updateThemeToggle(button, theme) {
+    const icon = button.querySelector('i');
+    const label = button.querySelector('.theme-toggle-label');
+    const isDark = theme === 'dark';
+    if (icon) {
+        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (label) {
+        label.textContent = isDark ? 'Light mode' : 'Dark mode';
+    }
+    button.setAttribute('aria-pressed', String(isDark));
 }
 
 // Setup mobile navigation
@@ -211,6 +245,29 @@ function filterProducts(category) {
         
         displayProducts(filteredProducts);
     }
+
+    // Update active state on category buttons
+    document.querySelectorAll('.filter-btn').forEach(b => {
+        if (b.dataset.category === category) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+
+    // Show/hide hero and scroll to products when applicable
+    const hero = document.querySelector('.hero');
+    const productsSection = document.getElementById('products');
+    if (hero) {
+        if (category === 'all') {
+            hero.classList.remove('hidden');
+        } else {
+            hero.classList.add('hidden');
+            if (productsSection) {
+                productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
 }
 
 // Open product modal
@@ -252,26 +309,27 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
-// Add some additional CSS for the modal content
+// Add some additional CSS for the modal content (theme-aware via CSS variables)
 const modalStyles = document.createElement('style');
 modalStyles.textContent = `
     .modal-product {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
+        padding: 0.5rem;
         align-items: start;
     }
     
     .modal-product-image {
         width: 100%;
         height: 300px;
-        background: #f8f9fa;
+        background: var(--color-surface-alt);
         border-radius: 15px;
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #6c757d;
+        color: var(--color-muted);
         font-size: 4rem;
     }
     
@@ -285,11 +343,11 @@ modalStyles.textContent = `
         font-size: 1.8rem;
         font-weight: 700;
         margin-bottom: 1rem;
-        color: #1d1d1f;
+        color: var(--color-text);
     }
     
     .modal-description {
-        color: #6c757d;
+        color: var(--color-muted);
         line-height: 1.6;
         margin-bottom: 1.5rem;
     }
@@ -303,8 +361,8 @@ modalStyles.textContent = `
     
     .modal-buy-btn {
         display: inline-block;
-        background: #000000;
-        color: white;
+        background: var(--color-accent);
+        color: var(--color-accent-contrast);
         text-decoration: none;
         padding: 16px 32px;
         border-radius: 10px;
@@ -314,21 +372,21 @@ modalStyles.textContent = `
     }
     
     .modal-buy-btn:hover {
-        background: #333333;
+        background: var(--color-accent-hover);
         transform: translateY(-2px);
     }
     
     .modal-note {
         font-size: 0.9rem;
-        color: #6c757d;
-        background: #f8f9fa;
+        color: var(--color-muted);
+        background: var(--color-surface-alt);
         padding: 1rem;
         border-radius: 8px;
         border-left: none;
     }
     
     .modal-note i {
-        color: #000000;
+        color: var(--color-accent);
         margin-right: 0.5rem;
     }
     
@@ -349,13 +407,8 @@ document.head.appendChild(modalStyles);
 // Add scroll effect to navbar
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
-    }
+    if (!navbar) return;
+    navbar.classList.toggle('navbar-scrolled', window.scrollY > 100);
 });
 
 // Add loading animation

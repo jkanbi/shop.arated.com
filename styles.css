@@ -10,6 +10,25 @@
   --color-accent-contrast: #ffffff; /* text on black */
   --color-footer-bg: #000000;
   --color-footer-text: #cbd5e1;
+  --color-footer-heading: #ffffff;
+  --color-footer-link: #ffffff;
+}
+
+/* Dark theme variables */
+:root.theme-dark {
+  --color-bg: #0b0b0c;
+  --color-text: #e5e7eb;
+  --color-muted: #9aa3b2;
+  --color-border: #26272b;
+  --color-surface: #141417;
+  --color-surface-alt: #1a1b1f;
+  --color-accent: #ffffff;
+  --color-accent-hover: #e5e5e5;
+  --color-accent-contrast: #000000;
+  --color-footer-bg: #0b0b0c;
+  --color-footer-text: #9aa3b2;
+  --color-footer-heading: #ffffff;
+  --color-footer-link: #ffffff;
 }
 
 /* Reset and base styles */
@@ -41,6 +60,11 @@ body {
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     border-bottom: 1px solid var(--color-border);
+}
+
+.navbar.navbar-scrolled {
+  background: var(--color-surface);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
@@ -93,7 +117,7 @@ body {
 }
 
 .nav-link {
-    color: #374151;
+    color: var(--color-text);
     text-decoration: none;
     font-weight: 500;
     padding: 1rem 0;
@@ -142,16 +166,20 @@ body {
 .bar {
     width: 25px;
     height: 3px;
-    background: #374151;
+    background: var(--color-text);
     margin: 3px 0;
     transition: 0.3s;
 }
 
 /* Hero Section - Arated.com style */
 .hero {
-    background: linear-gradient(135deg, #fafafa 0%, #f2f2f2 100%);
+    background: linear-gradient(135deg, var(--color-surface-alt) 0%, var(--color-surface) 100%);
     padding: 4rem 0;
-    color: #1e293b;
+    color: var(--color-text);
+}
+
+.hero.hidden {
+  display: none;
 }
 
 .hero-container {
@@ -169,7 +197,7 @@ body {
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
-    color: #1e293b;
+    color: var(--color-text);
 }
 
 .hero-subtitle {
@@ -220,7 +248,7 @@ body {
 /* Products Section - Arated.com style */
 .products-section {
     padding: 4rem 0;
-    background: #fafafa;
+    background: var(--color-surface-alt);
 }
 
 .section-header {
@@ -231,7 +259,7 @@ body {
 .section-header h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--color-text);
     margin-bottom: 1rem;
 }
 
@@ -283,12 +311,12 @@ body {
 }
 
 .product-card {
-    background: #ffffff;
+    background: var(--color-surface);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--color-border);
     cursor: pointer;
 }
 
@@ -300,11 +328,11 @@ body {
 
 .product-image {
     height: 250px;
-    background: #f1f5f9;
+    background: var(--color-surface-alt);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #94a3b8;
+    color: var(--color-muted);
     font-size: 3rem;
     position: relative;
     overflow: hidden;
@@ -328,7 +356,7 @@ body {
 .product-name {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--color-text);
     margin-bottom: 0.75rem;
     line-height: 1.4;
     display: -webkit-box;
@@ -338,7 +366,7 @@ body {
 }
 
 .product-description {
-    color: #64748b;
+    color: var(--color-muted);
     margin-bottom: 1rem;
     line-height: 1.5;
     display: -webkit-box;
@@ -379,7 +407,7 @@ body {
 /* About Section - Arated.com style */
 .about-section {
     padding: 4rem 0;
-    background: #ffffff;
+    background: var(--color-surface);
 }
 
 .about-content {
@@ -391,13 +419,13 @@ body {
 .about-content h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--color-text);
     margin-bottom: 1.5rem;
 }
 
 .about-content > p {
     font-size: 1.1rem;
-    color: #64748b;
+    color: var(--color-muted);
     margin-bottom: 3rem;
     line-height: 1.6;
 }
@@ -412,9 +440,9 @@ body {
 .feature {
     text-align: center;
     padding: 2rem;
-    background: #f8fafc;
+    background: var(--color-surface-alt);
     border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--color-border);
 }
 
 .feature i {
@@ -426,19 +454,19 @@ body {
 .feature h3 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--color-text);
     margin-bottom: 1rem;
 }
 
 .feature p {
-    color: #64748b;
+    color: var(--color-muted);
     line-height: 1.5;
 }
 
 /* Footer - Arated.com style */
 .footer {
     background: var(--color-footer-bg);
-    color: #ffffff;
+    color: var(--color-footer-text);
     padding: 3rem 0 1rem;
 }
 
@@ -454,19 +482,19 @@ body {
 }
 
 .footer-section h3 {
-    color: var(--color-accent-contrast);
+    color: var(--color-footer-heading);
     margin-bottom: 1rem;
     font-size: 1.2rem;
 }
 
 .footer-section h4 {
-    color: var(--color-accent-contrast);
+    color: var(--color-footer-heading);
     margin-bottom: 1rem;
     font-size: 1.1rem;
 }
 
 .footer-section a {
-    color: #cbd5e1;
+    color: var(--color-footer-text);
     text-decoration: none;
     display: block;
     margin-bottom: 0.5rem;
@@ -474,14 +502,14 @@ body {
 }
 
 .footer-section a:hover {
-    color: var(--color-accent-contrast);
+    color: var(--color-footer-link);
 }
 
 .footer-bottom {
-    border-top: 1px solid #1e293b;
+    border-top: 0;
     padding-top: 1rem;
     text-align: center;
-    color: #94a3b8;
+    color: var(--color-footer-text);
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -492,24 +520,60 @@ body {
 .footer-branding {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #1e293b;
+    border-top: 0;
     text-align: center;
 }
 
 .footer-branding p {
-    color: #94a3b8;
+    color: var(--color-footer-text);
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
 .footer-branding a {
-    color: var(--color-accent-contrast);
+    color: var(--color-footer-link);
     text-decoration: none;
     font-weight: 600;
 }
 
 .footer-branding a:hover {
     text-decoration: underline;
+}
+
+/* Footer theme toggle */
+.footer-theme-row {
+  border-top: 0;
+  padding: 1rem 0;
+  margin-top: 0.5rem;
+}
+
+.footer-theme-row .container {
+  display: flex;
+  justify-content: center;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-accent);
+}
+
+.theme-toggle i {
+  width: 1rem;
+  text-align: center;
 }
 
 /* Modal - Arated.com style */
@@ -526,9 +590,10 @@ body {
 }
 
 .modal-content {
-    background-color: #ffffff;
+    background-color: var(--color-surface);
     margin: 5% auto;
-    padding: 0;
+    padding: 1.25rem;
+    padding-top: 3rem; /* leave room for close button */
     border-radius: 12px;
     width: 90%;
     max-width: 800px;
@@ -552,14 +617,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f1f5f9;
+    background: var(--color-surface-alt);
     border-radius: 50%;
     transition: all 0.3s ease;
 }
 
 .close:hover {
-    background: #e2e8f0;
-    color: #1e293b;
+    background: var(--color-border);
+    color: var(--color-text);
 }
 
 /* Loading and Error States */
@@ -572,7 +637,7 @@ body {
 .spinner {
     width: 50px;
     height: 50px;
-    border: 4px solid #f1f5f9;
+    border: 4px solid var(--color-surface-alt);
     border-top: 4px solid var(--color-accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -591,7 +656,7 @@ body {
         left: -100%;
         top: 70px; /* height of navbar */
         flex-direction: column;
-        background-color: #ffffff;
+        background-color: var(--color-surface);
         width: 100%;
         text-align: center;
         transition: 0.3s;
@@ -695,5 +760,5 @@ body { scroll-padding-top: 120px; /* navbar + category bar */ }
 .brand-word {
   font-weight: 900;
   letter-spacing: 0.08em;
-  color: #1f2937; /* dark gray */
+  color: var(--color-text);
 }
