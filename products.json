@@ -33,12 +33,120 @@
     "name": "Nest Thermostat",
     "description": "Nest Thermostat",
     "price": 21.58,
-    "image": "https://hub.arated.com/wp-content/uploads/2019/03/nest-thermostat-3rd-gen-300x300.jpg",
+    "image": "https://via.placeholder.com/600x400?text=Nest+Thermostat",
     "link": "http://arated.com",
     "links": [
       "http://arated.com",
       "https://example.com/merchant-c/nest-thermostat"
     ],
+    "category": "kitchen"
+  },
+  {
+    "id": 4,
+    "name": "Smart LED Bulb",
+    "description": "Energy-efficient smart bulb with voice control.",
+    "price": 14.99,
+    "image": "https://via.placeholder.com/600x400?text=Smart+LED+Bulb",
+    "links": [
+      "https://supplier3.com/smart-bulb",
+      "https://example.com/merchant-a/smart-bulb"
+    ],
     "category": "home"
+  },
+  {
+    "id": 5,
+    "name": "Air Fryer XL",
+    "description": "Crispy results with little to no oil.",
+    "price": 89.99,
+    "image": "https://via.placeholder.com/600x400?text=Air+Fryer+XL",
+    "links": [
+      "https://supplier4.com/air-fryer-xl",
+      "https://example.com/merchant-b/air-fryer"
+    ],
+    "category": "home"
+  },
+  {
+    "id": 6,
+    "name": "Wireless Earbuds Pro",
+    "description": "Noise-cancelling earbuds with long battery life.",
+    "price": 59.99,
+    "image": "https://via.placeholder.com/600x400?text=Wireless+Earbuds+Pro",
+    "links": [
+      "https://supplier5.com/earbuds-pro",
+      "https://example.com/merchant-c/earbuds"
+    ],
+    "category": "tech"
+  },
+  {
+    "id": 7,
+    "name": "Standing Desk",
+    "description": "Adjustable height desk for ergonomic work.",
+    "price": 199.99,
+    "image": "https://via.placeholder.com/600x400?text=Standing+Desk",
+    "links": [
+      "https://supplier6.com/standing-desk",
+      "https://example.com/merchant-a/standing-desk"
+    ],
+    "category": "office"
+  },
+  {
+    "id": 8,
+    "name": "Premium Yoga Mat",
+    "description": "Non-slip mat with excellent cushioning.",
+    "price": 24.99,
+    "image": "https://via.placeholder.com/600x400?text=Premium+Yoga+Mat",
+    "links": [
+      "https://supplier7.com/yoga-mat",
+      "https://example.com/merchant-b/yoga-mat"
+    ],
+    "category": "fitness"
+  },
+  {
+    "id": 9,
+    "name": "Bluetooth Speaker",
+    "description": "Portable speaker with deep bass.",
+    "price": 39.99,
+    "image": "https://via.placeholder.com/600x400?text=Bluetooth+Speaker",
+    "links": [
+      "https://supplier8.com/bluetooth-speaker",
+      "https://example.com/merchant-c/speaker"
+    ],
+    "category": "tech"
+  },
+  {
+    "id": 10,
+    "name": "Robot Vacuum",
+    "description": "Automatic floor cleaning with smart mapping.",
+    "price": 229.99,
+    "image": "https://via.placeholder.com/600x400?text=Robot+Vacuum",
+    "links": [
+      "https://supplier9.com/robot-vacuum",
+      "https://example.com/merchant-a/robot-vacuum"
+    ],
+    "category": "kitchen"
+  },
+  {
+    "id": 11,
+    "name": "Barista Coffee Maker",
+    "description": "Brew cafe-quality coffee at home.",
+    "price": 129.99,
+    "image": "https://via.placeholder.com/600x400?text=Barista+Coffee+Maker",
+    "links": [
+      "https://supplier10.com/coffee-maker",
+      "https://example.com/merchant-b/coffee-maker"
+    ],
+    "category": "home"
+  },
+  {
+    "id": 12,
+    "name": "Fitness Tracker",
+    "description": "Track steps, heart rate, and sleep.",
+    "price": 49.99,
+    "image": "https://via.placeholder.com/600x400?text=Fitness+Tracker",
+    "links": [
+      "https://supplier11.com/fitness-tracker",
+      "https://example.com/merchant-c/fitness-tracker"
+    ],
+    "category": "fitness"
   }
 ]
