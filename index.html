@@ -37,6 +37,21 @@
           <span class="brand-word">SHOP</span>
         </a>
       </div>
+      <div class="nav-search">
+        <div class="search-bar">
+          <input id="search-query" type="text" placeholder="Search products...">
+          <label for="category-filter-top" class="visually-hidden">Categories</label>
+          <select id="category-filter-top" aria-label="Filter by category" title="Categories">
+            <option value="all" selected>Categories</option>
+            <option value="tech">Tech</option>
+            <option value="home">Home</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="fitness">Fitness</option>
+            <option value="kitchen">Kitchen</option>
+            <option value="office">Office</option>
+          </select>
+        </div>
+      </div>
       <div class="nav-menu">
         <a href="#home" class="nav-link">Home</a>
         <a href="#products" class="nav-link">Products</a>
@@ -90,7 +105,6 @@
         <h2>Featured Products</h2>
         <p>Handpicked products that deliver exceptional value</p>
       </div>
-      
       <!-- Filters moved to compact category bar under header -->
 
       <div class="products-grid" id="products-grid">

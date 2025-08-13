@@ -29,6 +29,9 @@ const modalContent = document.getElementById('modal-product-content');
 const closeBtn = document.querySelector('.close');
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
+const searchInputEl = document.getElementById('search-query');
+// removed deprecated market filter
+const topCategoryFilterEl = document.getElementById('category-filter-top');
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -67,6 +70,19 @@ function setupEventListeners() {
             }
         });
     });
+
+    // Search and market filter
+    if (searchInputEl) {
+        searchInputEl.addEventListener('input', applySearchAndFilters);
+    }
+    // no market filter
+    if (topCategoryFilterEl) {
+        topCategoryFilterEl.addEventListener('change', () => {
+            // Keep category buttons in sync visually
+            const selected = topCategoryFilterEl.value || 'all';
+            filterProducts(selected);
+        });
+    }
 }
 
 // Theme handling
@@ -214,37 +230,40 @@ function displayProducts(productsToShow) {
     });
 }
 
+// Apply text search and market filter on top of current category filter
+function applySearchAndFilters() {
+    const query = (searchInputEl?.value || '').toLowerCase().trim();
+    const selectedTopCategory = (topCategoryFilterEl?.value || 'all').toLowerCase();
+
+    // Start from category-filtered list
+    let baseList = [];
+    const effectiveCategory = selectedTopCategory !== 'all' ? selectedTopCategory : currentFilter;
+    if (effectiveCategory === 'all') {
+        baseList = products;
+    } else {
+        baseList = products.filter(p => (p.category || '').toLowerCase() === effectiveCategory.toLowerCase());
+    }
+
+    // Start with category-filtered base list
+    let filtered = baseList;
+
+    // Text search against name and description
+    if (query) {
+        filtered = filtered.filter(p =>
+            (p.name || '').toLowerCase().includes(query) ||
+            (p.description || '').toLowerCase().includes(query)
+        );
+    }
+
+    displayProducts(filtered);
+}
+
 // Filter products by category
 function filterProducts(category) {
     currentFilter = category;
     
-    if (category === 'all') {
-        displayProducts(products);
-    } else {
-        // Filter by the actual category field in the product data
-        const filteredProducts = products.filter(product => {
-            // Check if product has a category field and it matches
-            if (product.category && product.category.toLowerCase() === category.toLowerCase()) {
-                return true;
-            }
-            
-            // Fallback to text-based detection for products without category field
-            const text = (product.name + ' ' + product.description).toLowerCase();
-            if (category === 'tech') {
-                return text.includes('tech') || text.includes('electronic') || text.includes('gadget') || 
-                       text.includes('phone') || text.includes('computer') || text.includes('laptop');
-            } else if (category === 'home') {
-                return text.includes('home') || text.includes('kitchen') || text.includes('furniture') ||
-                       text.includes('decor') || text.includes('garden');
-            } else if (category === 'lifestyle') {
-                return text.includes('fitness') || text.includes('health') || text.includes('beauty') ||
-                       text.includes('fashion') || text.includes('outdoor');
-            }
-            return false;
-        });
-        
-        displayProducts(filteredProducts);
-    }
+    // After updating currentFilter, apply combined search/market filters
+    applySearchAndFilters();
 
     // Update active state on category buttons
     document.querySelectorAll('.filter-btn').forEach(b => {
