@@ -158,12 +158,12 @@ body {
     border-bottom-right-radius: 0;
 }
 
-.nav-search select {
+.nav-search .category-select select {
     padding: 10px 12px;
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: var(--color-text);
+    color: transparent; /* hide native value to avoid ghosting with overlay */
     margin: 0;
     appearance: none;
     -webkit-appearance: none;
@@ -178,14 +178,24 @@ body {
     border-bottom-right-radius: 0;
     min-width: 160px; /* ensure placeholder text is visible */
     padding-right: 32px; /* space for dropdown chevron */
+    flex: 0 0 160px; /* keep visible width even in flex shrink */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.nav-search select option[disabled] {
+/* Ensure options in the OS popup remain readable */
+.nav-search .category-select select option { color: var(--color-text); }
+
+/* Keep overlay visible even when the select is focused */
+.nav-search .category-select select:focus { color: transparent; }
+
+.nav-search .category-select select option[disabled] {
     color: var(--color-muted);
 }
 
 .nav-search .search-bar input,
-.nav-search .search-bar select {
+.nav-search .category-select select {
     border-radius: 0 !important; /* enforce no inner rounding */
 }
 
@@ -200,7 +210,7 @@ body {
 }
 
 /* Custom dropdown chevron */
-.nav-search .search-bar::after {
+.nav-search .category-select::after {
   content: '';
   position: absolute;
   right: 12px;
@@ -212,6 +222,27 @@ body {
   border-right: 6px solid transparent;
   border-top: 6px solid var(--color-muted);
   pointer-events: none; /* allow clicks to pass to select */
+}
+
+/* Visible text overlay for selected category to ensure cross-browser rendering */
+.nav-search .category-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-search .category-display {
+  position: absolute;
+  left: 12px; /* align text to the left inside the select area */
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text);
+  pointer-events: none; /* clicks go to the select */
+  font-size: 0.95rem;
 }
 
 .nav-link {

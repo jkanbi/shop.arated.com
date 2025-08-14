@@ -32,6 +32,14 @@ const navMenu = document.querySelector('.nav-menu');
 const searchInputEl = document.getElementById('search-query');
 // removed deprecated market filter
 const topCategoryFilterEl = document.getElementById('category-filter-top');
+let topCategoryDisplayEl = null;
+
+// Keep the visible category overlay text in sync with the select's selected option
+function updateTopCategoryDisplay() {
+    if (!topCategoryDisplayEl || !topCategoryFilterEl) return;
+    const selectedOption = topCategoryFilterEl.options[topCategoryFilterEl.selectedIndex];
+    topCategoryDisplayEl.textContent = selectedOption ? selectedOption.text : 'All';
+}
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,6 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     setupMobileNavigation();
     initTheme();
+    // If we don't use an overlay element in DOM, synthesize one for the header select
+    const container = document.querySelector('.nav-search .category-select');
+    if (container) {
+        topCategoryDisplayEl = document.createElement('span');
+        topCategoryDisplayEl.id = 'category-display';
+        topCategoryDisplayEl.className = 'category-display';
+        topCategoryDisplayEl.setAttribute('aria-hidden', 'true');
+        updateTopCategoryDisplay();
+        container.appendChild(topCategoryDisplayEl);
+    }
 });
 
 // Setup event listeners
@@ -77,11 +95,14 @@ function setupEventListeners() {
     }
     // no market filter
     if (topCategoryFilterEl) {
-        topCategoryFilterEl.addEventListener('change', () => {
+        const onCategoryChanged = () => {
             // Keep category buttons in sync visually
             const selected = topCategoryFilterEl.value || 'all';
             filterProducts(selected);
-        });
+            updateTopCategoryDisplay();
+        };
+        topCategoryFilterEl.addEventListener('change', onCategoryChanged);
+        topCategoryFilterEl.addEventListener('input', onCategoryChanged);
     }
 }
 
@@ -256,6 +277,9 @@ function applySearchAndFilters() {
     }
 
     displayProducts(filtered);
+
+    // Update the visible category display overlay text
+    updateTopCategoryDisplay();
 }
 
 // Filter products by category
@@ -273,6 +297,13 @@ function filterProducts(category) {
             b.classList.remove('active');
         }
     });
+
+    // Keep the top category dropdown in sync with the selected category
+    if (topCategoryFilterEl) {
+        topCategoryFilterEl.value = category || 'all';
+    }
+    // Also update overlay display text immediately
+    updateTopCategoryDisplay();
 
     // Show/hide hero and scroll to products when applicable
     const hero = document.querySelector('.hero');
