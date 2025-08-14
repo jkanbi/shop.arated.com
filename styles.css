@@ -831,6 +831,7 @@ body {
         box-shadow: 0 10px 27px rgba(0,0,0,0.05);
         padding: 2rem 0;
         z-index: 1500; /* above category bar */
+        border-bottom: 1px solid var(--color-border);
     }
 
     .nav-menu.active {
