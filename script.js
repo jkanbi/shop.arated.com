@@ -29,6 +29,8 @@ const modalContent = document.getElementById('modal-product-content');
 const closeBtn = document.querySelector('.close');
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
+const headerSearchBar = document.querySelector('.navbar .nav-search .search-bar');
+const mobileSearchContainer = document.querySelector('.nav-search.mobile-search');
 const searchInputEl = document.getElementById('search-query');
 // removed deprecated market filter
 const topCategoryFilterEl = document.getElementById('category-filter-top');
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     setupMobileNavigation();
     initTheme();
+    relocateSearchForViewport();
     // If we don't use an overlay element in DOM, synthesize one for the header select
     const container = document.querySelector('.nav-search .category-select');
     if (container) {
@@ -460,6 +463,25 @@ window.addEventListener('scroll', () => {
     if (!navbar) return;
     navbar.classList.toggle('navbar-scrolled', window.scrollY > 100);
 });
+
+// Move header search bar into the mobile slot on small screens, and back on larger screens
+function relocateSearchForViewport() {
+    if (!headerSearchBar || !mobileSearchContainer) return;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const inNavbar = headerSearchBar.parentElement?.classList.contains('search-bar') === false && headerSearchBar.closest('.nav-search')?.classList.contains('mobile-search') === false;
+    if (isMobile) {
+        if (headerSearchBar.parentElement !== mobileSearchContainer) {
+            mobileSearchContainer.appendChild(headerSearchBar);
+        }
+    } else {
+        const navbarSearch = document.querySelector('.navbar .nav-search');
+        if (navbarSearch && headerSearchBar.parentElement !== navbarSearch) {
+            navbarSearch.appendChild(headerSearchBar);
+        }
+    }
+}
+
+window.addEventListener('resize', relocateSearchForViewport);
 
 // Add loading animation
 function showLoading() {

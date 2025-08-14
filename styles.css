@@ -842,8 +842,13 @@ body {
         display: flex;
     }
 
-    .nav-search {
-        display: none; /* hide top search on small screens to save space */
+    .nav-search { display: none; }
+    .nav-search.mobile-search {
+        display: block; /* show mobile search container */
+        padding: 10px 20px;
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-surface);
     }
 
     .hero-container {
