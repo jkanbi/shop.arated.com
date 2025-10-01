@@ -12,13 +12,37 @@ function formatPriceGBP(value) {
 }
 
 function getProductLinks(product) {
+    // Check if links is an array of objects with supplier names
     if (Array.isArray(product.links)) {
-        return product.links.filter(Boolean).slice(0, 4);
+        return product.links.filter(Boolean).slice(0, 4).map(link => {
+            // If link is an object with url and supplier, return it as is
+            if (typeof link === 'object' && link.url && link.supplier) {
+                return link;
+            }
+            // If link is just a string, wrap it in the expected format
+            return {
+                url: link,
+                supplier: extractSupplierName(link)
+            };
+        });
     }
     if (product.link) {
-        return [product.link];
+        return [{
+            url: product.link,
+            supplier: extractSupplierName(product.link)
+        }];
     }
     return [];
+}
+
+function extractSupplierName(url) {
+    try {
+        const domain = new URL(url).hostname;
+        // Remove www. and common TLDs to get a cleaner name
+        return domain.replace(/^www\./, '').split('.')[0];
+    } catch {
+        return 'Supplier';
+    }
 }
 
 // DOM elements
@@ -321,9 +345,9 @@ function openProductModal(productId) {
                 <p class="modal-description">${product.description}</p>
                 <div class="modal-price">${formatPriceGBP(product.price)}</div>
                 <div class="modal-links">
-                    ${getProductLinks(product).map((url, i) => `
-                        <a href="${url}" target="_blank" rel="nofollow noopener" class="modal-buy-btn">
-                            <i class="fas fa-external-link-alt"></i> Buy Link ${i + 1}
+                    ${getProductLinks(product).map((link, i) => `
+                        <a href="${link.url}" target="_blank" rel="nofollow noopener" class="modal-buy-btn">
+                            <i class="fas fa-external-link-alt"></i> Buy from ${link.supplier}
                         </a>
                     `).join('') || '<p style="color:#6c757d">No affiliate links available.</p>'}
                 </div>

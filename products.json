@@ -7,10 +7,22 @@
     "image": "https://via.placeholder.com/600x400?text=Product+One",
     "link": "https://supplier1.com/product1",
     "links": [
-      "https://supplier1.com/product1",
-      "https://supplier1.com/product1-alt",
-      "https://example.com/merchant-a/product1",
-      "https://example.com/merchant-b/product1"
+      {
+        "url": "https://supplier1.com/product1",
+        "supplier": "Supplier1"
+      },
+      {
+        "url": "https://supplier1.com/product1-alt",
+        "supplier": "Supplier1 Alt"
+      },
+      {
+        "url": "https://example.com/merchant-a/product1",
+        "supplier": "Merchant A"
+      },
+      {
+        "url": "https://example.com/merchant-b/product1",
+        "supplier": "Merchant B"
+      }
     ],
     "category": "home"
   },
@@ -22,9 +34,18 @@
     "image": "https://via.placeholder.com/600x400?text=Product+Two",
     "link": "https://supplier2.com/product2",
     "links": [
-      "https://supplier2.com/product2",
-      "https://supplier2.com/product2-alt",
-      "https://example.com/merchant-a/product2"
+      {
+        "url": "https://supplier2.com/product2",
+        "supplier": "Supplier2"
+      },
+      {
+        "url": "https://supplier2.com/product2-alt",
+        "supplier": "Supplier2 Alt"
+      },
+      {
+        "url": "https://example.com/merchant-a/product2",
+        "supplier": "Merchant A"
+      }
     ],
     "category": "tech"
   },
@@ -33,11 +54,17 @@
     "name": "Nest Thermostat",
     "description": "Nest Thermostat",
     "price": 21.58,
-    "image": "https://via.placeholder.com/600x400?text=Nest+Thermostat",
+    "image": "https://myboiler.sfo2.cdn.digitaloceanspaces.com/images/Nest/nest-thermostat.png?text=Nest+Thermostat",
     "link": "http://arated.com",
     "links": [
-      "http://arated.com",
-      "https://example.com/merchant-c/nest-thermostat"
+      {
+        "url": "http://arated.com",
+        "supplier": "ARated"
+      },
+      {
+        "url": "https://example.com/merchant-c/nest-thermostat",
+        "supplier": "Merchant C"
+      }
     ],
     "category": "kitchen"
   },
@@ -48,8 +75,14 @@
     "price": 14.99,
     "image": "https://via.placeholder.com/600x400?text=Smart+LED+Bulb",
     "links": [
-      "https://supplier3.com/smart-bulb",
-      "https://example.com/merchant-a/smart-bulb"
+      {
+        "url": "https://supplier3.com/smart-bulb",
+        "supplier": "Supplier3"
+      },
+      {
+        "url": "https://example.com/merchant-a/smart-bulb",
+        "supplier": "Merchant A"
+      }
     ],
     "category": "home"
   },
@@ -60,8 +93,14 @@
     "price": 89.99,
     "image": "https://via.placeholder.com/600x400?text=Air+Fryer+XL",
     "links": [
-      "https://supplier4.com/air-fryer-xl",
-      "https://example.com/merchant-b/air-fryer"
+      {
+        "url": "https://supplier4.com/air-fryer-xl",
+        "supplier": "Supplier4"
+      },
+      {
+        "url": "https://example.com/merchant-b/air-fryer",
+        "supplier": "Merchant B"
+      }
     ],
     "category": "home"
   },
@@ -72,8 +111,14 @@
     "price": 59.99,
     "image": "https://via.placeholder.com/600x400?text=Wireless+Earbuds+Pro",
     "links": [
-      "https://supplier5.com/earbuds-pro",
-      "https://example.com/merchant-c/earbuds"
+      {
+        "url": "https://supplier5.com/earbuds-pro",
+        "supplier": "Supplier5"
+      },
+      {
+        "url": "https://example.com/merchant-c/earbuds",
+        "supplier": "Merchant C"
+      }
     ],
     "category": "tech"
   },
@@ -84,8 +129,14 @@
     "price": 199.99,
     "image": "https://via.placeholder.com/600x400?text=Standing+Desk",
     "links": [
-      "https://supplier6.com/standing-desk",
-      "https://example.com/merchant-a/standing-desk"
+      {
+        "url": "https://supplier6.com/standing-desk",
+        "supplier": "Supplier6"
+      },
+      {
+        "url": "https://example.com/merchant-a/standing-desk",
+        "supplier": "Merchant A"
+      }
     ],
     "category": "office"
   },
@@ -96,8 +147,14 @@
     "price": 24.99,
     "image": "https://via.placeholder.com/600x400?text=Premium+Yoga+Mat",
     "links": [
-      "https://supplier7.com/yoga-mat",
-      "https://example.com/merchant-b/yoga-mat"
+      {
+        "url": "https://supplier7.com/yoga-mat",
+        "supplier": "Supplier7"
+      },
+      {
+        "url": "https://example.com/merchant-b/yoga-mat",
+        "supplier": "Merchant B"
+      }
     ],
     "category": "fitness"
   },
@@ -108,8 +165,14 @@
     "price": 39.99,
     "image": "https://via.placeholder.com/600x400?text=Bluetooth+Speaker",
     "links": [
-      "https://supplier8.com/bluetooth-speaker",
-      "https://example.com/merchant-c/speaker"
+      {
+        "url": "https://supplier8.com/bluetooth-speaker",
+        "supplier": "Supplier8"
+      },
+      {
+        "url": "https://example.com/merchant-c/speaker",
+        "supplier": "Merchant C"
+      }
     ],
     "category": "tech"
   },
@@ -120,8 +183,14 @@
     "price": 229.99,
     "image": "https://via.placeholder.com/600x400?text=Robot+Vacuum",
     "links": [
-      "https://supplier9.com/robot-vacuum",
-      "https://example.com/merchant-a/robot-vacuum"
+      {
+        "url": "https://supplier9.com/robot-vacuum",
+        "supplier": "Supplier9"
+      },
+      {
+        "url": "https://example.com/merchant-a/robot-vacuum",
+        "supplier": "Merchant A"
+      }
     ],
     "category": "kitchen"
   },
@@ -132,8 +201,14 @@
     "price": 129.99,
     "image": "https://via.placeholder.com/600x400?text=Barista+Coffee+Maker",
     "links": [
-      "https://supplier10.com/coffee-maker",
-      "https://example.com/merchant-b/coffee-maker"
+      {
+        "url": "https://supplier10.com/coffee-maker",
+        "supplier": "Supplier10"
+      },
+      {
+        "url": "https://example.com/merchant-b/coffee-maker",
+        "supplier": "Merchant B"
+      }
     ],
     "category": "home"
   },
@@ -144,8 +219,50 @@
     "price": 49.99,
     "image": "https://via.placeholder.com/600x400?text=Fitness+Tracker",
     "links": [
-      "https://supplier11.com/fitness-tracker",
-      "https://example.com/merchant-c/fitness-tracker"
+      {
+        "url": "https://supplier11.com/fitness-tracker",
+        "supplier": "Supplier11"
+      },
+      {
+        "url": "https://example.com/merchant-c/fitness-tracker",
+        "supplier": "Merchant C"
+      }
+    ],
+    "category": "fitness"
+  },
+  {
+    "id": 13,
+    "name": "Tado - Wireless Smart Thermostat X - Starter Kit (TC) [UK] + Stand[incl. Programmer with Hot Water Control and OpenTherm]",
+    "description": "Track steps, heart rate, and sleep.",
+    "price": 49.99,
+    "image": "https://myboiler.sfo2.cdn.digitaloceanspaces.com/images/Tado/tado-x-starter-kit-stand.jpg?text=Tado",
+    "links": [
+      {
+        "url": "https://amzn.to/3KsiZ6h",
+        "supplier": "Amazon"
+      },
+      {
+        "url": "https://example.com/merchant-c/fitness-tracker",
+        "supplier": "Merchant C"
+      }
+    ],
+    "category": "fitness"
+  },
+  {
+    "id": 14,
+    "name": "Fitness Tracker",
+    "description": "Track steps, heart rate, and sleep.",
+    "price": 49.99,
+    "image": "https://via.placeholder.com/600x400?text=Fitness+Tracker",
+    "links": [
+      {
+        "url": "https://supplier11.com/fitness-tracker",
+        "supplier": "Supplier11"
+      },
+      {
+        "url": "https://example.com/merchant-c/fitness-tracker",
+        "supplier": "Merchant C"
+      }
     ],
     "category": "fitness"
   }
