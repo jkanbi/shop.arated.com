@@ -23,7 +23,6 @@ function getProductLinks(product) {
 
 // DOM elements
 const productsGrid = document.getElementById('products-grid');
-const filterBtns = document.querySelectorAll('.filter-btn');
 const modal = document.getElementById('product-modal');
 const modalContent = document.getElementById('modal-product-content');
 const closeBtn = document.querySelector('.close');
@@ -64,14 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Setup event listeners
 function setupEventListeners() {
-    // Filter buttons
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const category = btn.dataset.category;
-            filterProducts(category);
-        });
-    });
-
     // Modal close
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
@@ -292,14 +283,6 @@ function filterProducts(category) {
     // After updating currentFilter, apply combined search/market filters
     applySearchAndFilters();
 
-    // Update active state on category buttons
-    document.querySelectorAll('.filter-btn').forEach(b => {
-        if (b.dataset.category === category) {
-            b.classList.add('active');
-        } else {
-            b.classList.remove('active');
-        }
-    });
 
     // Keep the top category dropdown in sync with the selected category
     if (topCategoryFilterEl) {

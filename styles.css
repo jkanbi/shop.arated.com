@@ -440,28 +440,6 @@ body {
     flex-wrap: wrap;
 }
 
-.filter-btn {
-    background: var(--color-surface);
-    border: 2px solid #e2e8f0;
-    color: #374151;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-}
-
-.filter-btn:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-}
-
-.filter-btn.active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-accent-contrast);
-}
 
 /* Products Grid - Arated.com style */
 .products-grid {
@@ -894,43 +872,13 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
     .brand-word { font-size: 0.95rem; }
 }
 
-/* Category bar under header */
-.category-bar {
-  position: sticky;
-  top: 70px; /* same as navbar height */
-  z-index: 999;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-}
 
-.category-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 20px;
-  overflow-x: auto;
-  max-width: none;
-  width: 100%;
-  margin: 0;
-}
-
-/* Buttons reuse .filter-btn styles but compact */
-.category-bar .filter-btn {
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-}
-
-/* Ensure page content doesn't hide under sticky bars */
+/* Ensure page content doesn't hide under sticky navbar */
 .hero { margin-top: 0; }
-body { scroll-padding-top: 120px; /* navbar + category bar */ }
+body { scroll-padding-top: 80px; /* navbar only */ }
 
 .modal-product-info .modal-links { display: flex; flex-direction: column; gap: 0.5rem; }
 .modal-product-info .modal-buy-btn { width: 100%; }
