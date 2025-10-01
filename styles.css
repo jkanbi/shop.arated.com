@@ -877,7 +877,10 @@ body {
 
 
 /* Ensure page content doesn't hide under sticky navbar */
-.hero { margin-top: 0; }
+.hero { 
+    margin-top: 0; 
+    display: none; /* Hide hero container */
+}
 body { scroll-padding-top: 80px; /* navbar only */ }
 
 .modal-product-info .modal-links { display: flex; flex-direction: column; gap: 0.5rem; }
