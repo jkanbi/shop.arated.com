@@ -3,6 +3,17 @@ let products = [];
 let editingProductId = null;
 let hasUnsavedChanges = false;
 
+// Helper function to extract supplier name from URL
+function extractSupplierName(url) {
+    try {
+        const domain = new URL(url).hostname;
+        // Remove www. and common TLDs to get a cleaner name
+        return domain.replace(/^www\./, '').split('.')[0];
+    } catch {
+        return 'Supplier';
+    }
+}
+
 // DOM elements
 const productFormElement = document.getElementById('productFormElement');
 const addProductBtn = document.getElementById('addProductBtn');
@@ -30,6 +41,10 @@ const linkInput = document.getElementById('link');
 const link2Input = document.getElementById('link2');
 const link3Input = document.getElementById('link3');
 const link4Input = document.getElementById('link4');
+const supplier1Input = document.getElementById('supplier1');
+const supplier2Input = document.getElementById('supplier2');
+const supplier3Input = document.getElementById('supplier3');
+const supplier4Input = document.getElementById('supplier4');
 const categoryInput = document.getElementById('category');
 const imagePreview = document.getElementById('imagePreview');
 
@@ -73,7 +88,7 @@ function setupEventListeners() {
     imageInput.addEventListener('input', updateImagePreview);
     
     // Form inputs for change detection
-    [nameInput, descriptionInput, priceInput, imageInput, linkInput, categoryInput].forEach(input => {
+    [nameInput, descriptionInput, priceInput, imageInput, linkInput, link2Input, link3Input, link4Input, supplier1Input, supplier2Input, supplier3Input, supplier4Input, categoryInput].forEach(input => {
         input.addEventListener('input', markAsChanged);
     });
 }
@@ -121,13 +136,25 @@ function handleFormSubmit(e) {
         return;
     }
     
+    // Create links array with supplier names
+    const links = [];
+    const linkUrls = [linkInput.value.trim(), link2Input.value.trim(), link3Input.value.trim(), link4Input.value.trim()];
+    const supplierNames = [supplier1Input.value.trim(), supplier2Input.value.trim(), supplier3Input.value.trim(), supplier4Input.value.trim()];
+    
+    linkUrls.forEach((url, index) => {
+        if (url) {
+            const supplier = supplierNames[index] || extractSupplierName(url);
+            links.push({ url, supplier });
+        }
+    });
+
     const productData = {
         name: nameInput.value.trim(),
         description: descriptionInput.value.trim(),
         price: parseFloat(priceInput.value),
         image: imageInput.value.trim(),
         link: linkInput.value.trim(),
-        links: [linkInput.value.trim(), link2Input.value.trim(), link3Input.value.trim(), link4Input.value.trim()].filter(Boolean),
+        links: links,
         category: categoryInput.value || null
     };
     
@@ -175,10 +202,42 @@ function editProduct(productId) {
     descriptionInput.value = product.description;
     priceInput.value = product.price;
     imageInput.value = product.image || '';
-    linkInput.value = product.link || (Array.isArray(product.links) ? product.links[0] || '' : '');
-    link2Input.value = Array.isArray(product.links) ? product.links[1] || '' : '';
-    link3Input.value = Array.isArray(product.links) ? product.links[2] || '' : '';
-    link4Input.value = Array.isArray(product.links) ? product.links[3] || '' : '';
+    
+    // Handle both old and new link formats
+    if (Array.isArray(product.links) && product.links.length > 0) {
+        // New format with supplier objects
+        if (typeof product.links[0] === 'object' && product.links[0].url) {
+            linkInput.value = product.links[0].url || '';
+            supplier1Input.value = product.links[0].supplier || '';
+            link2Input.value = product.links[1]?.url || '';
+            supplier2Input.value = product.links[1]?.supplier || '';
+            link3Input.value = product.links[2]?.url || '';
+            supplier3Input.value = product.links[2]?.supplier || '';
+            link4Input.value = product.links[3]?.url || '';
+            supplier4Input.value = product.links[3]?.supplier || '';
+        } else {
+            // Old format with string URLs
+            linkInput.value = product.links[0] || '';
+            supplier1Input.value = extractSupplierName(product.links[0] || '');
+            link2Input.value = product.links[1] || '';
+            supplier2Input.value = extractSupplierName(product.links[1] || '');
+            link3Input.value = product.links[2] || '';
+            supplier3Input.value = extractSupplierName(product.links[2] || '');
+            link4Input.value = product.links[3] || '';
+            supplier4Input.value = extractSupplierName(product.links[3] || '');
+        }
+    } else {
+        // Fallback to single link
+        linkInput.value = product.link || '';
+        supplier1Input.value = extractSupplierName(product.link || '');
+        link2Input.value = '';
+        supplier2Input.value = '';
+        link3Input.value = '';
+        supplier3Input.value = '';
+        link4Input.value = '';
+        supplier4Input.value = '';
+    }
+    
     categoryInput.value = product.category || '';
     
     updateImagePreview();
@@ -217,6 +276,10 @@ function resetForm() {
     link2Input.value = '';
     link3Input.value = '';
     link4Input.value = '';
+    supplier1Input.value = '';
+    supplier2Input.value = '';
+    supplier3Input.value = '';
+    supplier4Input.value = '';
     hasUnsavedChanges = false;
 }
 
@@ -237,7 +300,19 @@ function updateProductsTable() {
     const filteredProducts = getFilteredProducts();
     
     productsTableBody.innerHTML = filteredProducts.map(product => {
-        const links = Array.isArray(product.links) ? product.links.filter(Boolean) : (product.link ? [product.link] : []);
+        let suppliers = [];
+        if (Array.isArray(product.links) && product.links.length > 0) {
+            if (typeof product.links[0] === 'object' && product.links[0].supplier) {
+                // New format with supplier objects
+                suppliers = product.links.map(link => link.supplier).filter(Boolean);
+            } else {
+                // Old format with string URLs
+                suppliers = product.links.map(url => extractSupplierName(url)).filter(Boolean);
+            }
+        } else if (product.link) {
+            suppliers = [extractSupplierName(product.link)];
+        }
+        
         const priceGBP = (new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' })).format(Number(product.price || 0));
         return `
         <tr>
@@ -247,7 +322,7 @@ function updateProductsTable() {
             <td class="product-name">${product.name}</td>
             <td class="product-description">${product.description}</td>
             <td class="product-price">${priceGBP}</td>
-            <td class="product-links">${links.length}</td>
+            <td class="product-suppliers">${suppliers.join(', ') || 'None'}</td>
             <td class="product-category">${product.category || 'Uncategorized'}</td>
             <td class="action-buttons">
                 <button class="action-btn edit-btn" onclick="editProduct(${product.id})">

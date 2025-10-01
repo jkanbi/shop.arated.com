@@ -283,6 +283,21 @@ body {
   border-color: #007aff;
 }
 
+.link-input-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.link-input-group input[type="url"] {
+  flex: 2;
+}
+
+.supplier-input {
+  flex: 1;
+  min-width: 120px;
+}
+
 .price-input {
   position: relative;
   display: flex;
